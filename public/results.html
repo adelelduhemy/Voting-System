@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voting System - Results</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/vote">Vote</a></li>
+      <li><a href="/results">Results</a></li>
+    </ul>
+  </nav>
+  <header>
+    <h1>Election Results</h1>
+  </header>
+  <main>
+    <div id="resultsContainer">
+      <!-- Vote results will be loaded here -->
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Voting System Project</p>
+  </footer>
+  <script>
+    async function loadResults() {
+      const response = await fetch('/api/results');
+      const results = await response.json();
+      
+      let html = '<h2>Current Vote Count</h2><ul>';
+      for (const candidate in results) {
+        html += `<li>${candidate}: ${results[candidate]}</li>`;
+      }
+      html += '</ul>';
+      document.getElementById('resultsContainer').innerHTML = html;
+    }
+    window.onload = loadResults;
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voting System - Vote</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/vote">Vote</a></li>
+      <li><a href="/results">Results</a></li>
+    </ul>
+  </nav>
+  <header>
+    <h1>Cast Your Vote</h1>
+  </header>
+  <main>
+    <form id="voteForm">
+      <label for="voterName">Name:</label>
+      <input type="text" id="voterName" name="voterName" required>
+    
+      <label for="voterEmail">Email:</label>
+      <input type="email" id="voterEmail" name="voterEmail" required>
+    
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    
+      <label for="candidate">Choose a candidate:</label>
+      <select id="candidate" name="candidate" required>
+          <option value="Candidate A">Candidate A</option>
+          <option value="Candidate B">Candidate B</option>
+      </select>
+    
+      <button type="submit">Submit Vote</button>
+    </form>
+    
+    <script>
+    document.getElementById('voteForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      
+      const voterName = document.getElementById('voterName').value;
+      const voterEmail = document.getElementById('voterEmail').value;
+      const password = document.getElementById('password').value;
+      const candidate = document.getElementById('candidate').value;
+    
+      const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ voterName, voterEmail, password, candidate })
+      });
+    
+      const data = await response.json();
+      alert(data.message || data.error);
+    });
+    </script>
+    </main>
+</body>
+</html>
